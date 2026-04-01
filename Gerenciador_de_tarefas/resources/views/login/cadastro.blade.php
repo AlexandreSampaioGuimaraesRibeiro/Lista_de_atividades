@@ -232,7 +232,7 @@
 
         <div class="form-header">
             <h1>Cadastro</h1>
-            <p>Já tem uma conta? <a href="{{ route('login') }}">Entrar</a></p>
+            <p>Já tem uma conta? <a href="{{ route('usuario.index') }}">Entrar</a></p>
         </div>
 
         @if(session('success'))

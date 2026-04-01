@@ -12,18 +12,9 @@ class UsuarioController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $request, Usuario $usuario)
     {
-        $validated= $request->validate([
-            'email'=>['string','required','max:255'],
-            'password'=>['string','required','max:255'],
-        ]);
-        $request= Usuario::where('email',$validated['email'])->first();
-        $senha=$request['password'];
-        if($request && Hash::check($senha, $request->senha)){
-            return redirect()->route('login.login')->with('success','Login efetuado com sucesso');
-        }
-        return redirect()->route('login.login')->with('error','Credenciais inválidas');
+        return view('login.index');
     }
 
     /**
@@ -31,7 +22,7 @@ class UsuarioController extends Controller
      */
     public function create()
     {
-        //
+        return view('login.cadastro');
     }
 
     /**
@@ -44,9 +35,9 @@ class UsuarioController extends Controller
             'email'=> ['string','required','max:255'],
             'password'=> ['string','required','max:255'],
         ]);
-
+        $validated['password'] = Hash::make($validated['password']);
         Usuario::create($validated);
-        return redirect()->route('login.cadastro')->with('success','Usuário criado com sucesso');
+        return redirect()->route('usuario.index')->with('success','Usuário criado com sucesso');
     }
 
     /**
@@ -54,8 +45,20 @@ class UsuarioController extends Controller
      */
     public function show(Request $request)
     {
-        
+        $validated = $request->validate([
+            'email' => ['required'],
+            'password' => ['required'],
+        ]);
+
+        $usuario = Usuario::where('email', $validated['email'])->first();
+
+        if ($usuario && Hash::check($validated['password'], $usuario->password)) {
+            return redirect()->route('tarefa.index')->with('success','Login efetuado com sucesso');
+        }
+
+        return redirect()->route('login')->with('error','Credenciais inválidas');
     }
+    
 
     /**
      * Show the form for editing the specified resource.

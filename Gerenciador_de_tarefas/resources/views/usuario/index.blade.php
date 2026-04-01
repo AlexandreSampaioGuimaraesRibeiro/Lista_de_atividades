@@ -227,7 +227,7 @@
 
     <header>
         <h1>Tarefas</h1>
-        <span>Olá, {{ Auth::user()->name }}</span>
+        <span>Bem vindo</span>
     </header>
 
     @if(session('success'))

@@ -246,7 +246,7 @@
 
         <div class="form-header">
             <h1>Entrar</h1>
-            <p>Não tem conta? <a href="{{ route('login.cadastro') }}">Criar agora</a></p>
+            <p>Não tem conta? <a href="{{ route('usuario.create') }}">Criar agora</a></p>
         </div>
 
         @if(session('success'))
@@ -259,7 +259,7 @@
 
         <form method="POST" action="{{ route('usuario.show', $usuario ?? '') }}">
             @csrf
-            @method('GET')
+            @method('POST')
 
             <div class="field">
                 <label for="email">E-mail</label>
