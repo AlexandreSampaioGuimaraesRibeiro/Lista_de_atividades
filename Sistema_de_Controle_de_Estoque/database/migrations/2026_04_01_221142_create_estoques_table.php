@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nome');
             $table->string('descricao');
             $table->string('categoria');
-            $table->int('quantidade');
+            $table->integer('quantidade');
             $table->decimal('preco');
             $table->string('fornecedor');
             $table->timestamps();
